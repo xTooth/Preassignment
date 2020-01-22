@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title th:text="${data.getName()}"> Placeholder </title>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <main>
+            <br/>
+            <br/>
+            <br/>
+            <a th:href='@{/}'>Back to Index</a>
+            <div>
+                <h1 th:text="${data.getName()}"></h1>
+                <hr/>
+                <p th:text="${data.getDescription()}">placeholder</p>
+                <br/>
+                <h2>Dependencies</h2>
+                <ul>
+                    <li th:each="dependency : ${data.getDependencies()}" >
+                     <!--   <div th:if='${allpgk.containsKey(dependecy)}'> !-->
+                        <a th:text="${dependency}" th:href="@{'/package/' + ${dependency}}"></a>
+                       <!-- </div>
+                        <div th:unless='${allpgk.containsKey(dependecy)}'>
+                            <p th:text="${dependency}"></p>
+                        </div> !-->
+                    </li>
+                </ul>
+
+                <hr/>
+                <h2>Reverse Dependencies</h2>
+                <ul>
+                    <li th:each="support : ${data.getSupports()}">
+                        <a th:text="${support}" th:href="@{'/package/' + ${support}}"></a>                      
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </body>
+</html>

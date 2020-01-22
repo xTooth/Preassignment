@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title> Index </title>       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <main >
+            <br/>
+            <br/>
+            <br/>                
+            <div>
+                <h1>Packages</h1>
+                <br/>
+                <ul >
+                    <li th:each="data : ${data}">
+                        <a th:text="${data}" th:href="@{'/package/' + ${data}}"></a>
+                    </li>
+                </ul> 
+            </div>
+        </main>
+    </body>
+</html>
