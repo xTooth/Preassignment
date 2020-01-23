@@ -1,5 +1,7 @@
 # Preassignment
 
+[Project on heroku](https://pre-assignment-for-reactor.herokuapp.com/)
+
  A simple website that parses package information from the status.real file.
  This version reads a mockfile from "src/main/java/projekti/data/status.real" but this can be changed to the matching local directory.
 
@@ -12,19 +14,18 @@ mvn spring-boot:run
 The stack for this project is as follows:
 
 Back-end:
-Maven
-Java
-Spring Boot
-Thymeleaf
+* Maven
+* Java
+* Thymeleaf
 
 Front-end:
-HTML5
-CSS3
+* HTML5
+* CSS3
 
 
 Rational:
 
-I felt like the required functionality could be achieved without using a database. Therefore the application will read any file specified in the "DataHandler.java" -file, and the user will not have to mind resetting or removing some local db.
+I felt like the required functionality could be achieved without using a database. Therefore the application will read any file specified in the "DataHandler.java" -file, and the user will not have to mind resetting or removing some local db. I also avoided using BootStrap since the tasked asked for simple clean code.
 
 Basic idea:
 
