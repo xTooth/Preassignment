@@ -4,11 +4,15 @@
         <meta charset="UTF-8"/>
         <title th:text="${data.getName()}"> Placeholder </title>       
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="/css/project.css" rel="stylesheet"/>
     </head>
     <body>
 
         <main>
             <br/>
+            <br/>
+            <br/>
+            <a href='https://github.com/xTooth/Preassignment'>This project on GitHub</a>
             <br/>
             <br/>
             <a th:href='@{/}'>Back to Index</a>
@@ -17,15 +21,18 @@
                 <hr/>
                 <p th:text="${data.getDescription()}">placeholder</p>
                 <br/>
+
+
                 <h2>Dependencies</h2>
                 <ul>
-                    <li th:each="dependency : ${data.getDependencies()}" >
-                     <!--   <div th:if='${allpgk.containsKey(dependecy)}'> !-->
-                        <a th:text="${dependency}" th:href="@{'/package/' + ${dependency}}"></a>
-                       <!-- </div>
-                        <div th:unless='${allpgk.containsKey(dependecy)}'>
-                            <p th:text="${dependency}"></p>
-                        </div> !-->
+                    <li th:each="dependency : ${exists}" >
+                        <a th:text="${dependency}" th:href="@{'/package/' + ${dependency}}"></a>                                             
+                    </li>
+                </ul>
+
+                <ul>
+                    <li th:each="dependency : ${doesntExist}" >
+                        <p th:text="${dependency}" > placeholder</p>                                             
                     </li>
                 </ul>
 

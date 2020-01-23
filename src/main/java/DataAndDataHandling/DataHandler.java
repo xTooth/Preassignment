@@ -33,7 +33,8 @@ public class DataHandler {
         data = new HashMap<>();
         resetBR();
     }
-
+    
+    // creates a HashMap of String, data pairs and an ArrayList for alphabetical order. 
     public HashMap<String, Data> createDataMap() throws IOException {
         String nextLine;
         String pkg = "";
@@ -83,18 +84,24 @@ public class DataHandler {
 
     }
 
+    // "creates" the list, functions as a getter in reality
     public ArrayList<String> createList() {
         return list;
     }
 
+    //resets Buffer reader
     private void resetBR() throws FileNotFoundException {
         bufferReader = new BufferedReader(new FileReader(file));
     }
-
+    
+    // adds all dependencies to given package in the hashMap.
     private void findDependencies() throws FileNotFoundException, IOException {
+        
         resetBR();
+        
         String nextLine;
         String pkg = "";
+        
         while ((nextLine = bufferReader.readLine()) != null) {
             String[] row = nextLine.split(" ");
             if (row[0].equals("Package:")) {
@@ -102,26 +109,67 @@ public class DataHandler {
             }
             //dependecies found.
             if (row[0].equals("Depends:")) {
-                String[] possibilities = nextLine.split(": ")[1].split(" ");
-                for (String s : possibilities) {
-                    if (!data.get(pkg).getDependencies().contains(s)) {
-                        if (data.containsKey(s)) {
-
-                            data.get(s).addSupport(pkg);
-                            data.get(pkg).addDependency(s);
-
-                        } else {
-
-                           // data.get(pkg).addDependency(s);
-
-                        }
+                
+                //Split of "Depends: from actual dependencies, and split separate dependencies to own lines
+                String[] possibilities = nextLine.split(": ")[1].split(",");
+                
+                // an int to make sure we dont read empty characters as a line can begin with a " ".
+                int wordRead = 0;
+                
+                String[] words;
+                for (int i = 0; i < possibilities.length; i++) {
+                    if (i > 0) {
+                        wordRead = 1;
+                    }
+                    if (possibilities[i].contains(" | ")) {
+                        words = possibilities[i].split("\\|");
+                        addPotentialDependencies(words, wordRead, pkg);
+                    } else {
+                        words = possibilities[i].split(" ");
+                        addForcedDependencies(words, wordRead, pkg);
                     }
                 }
             }
         }
-
         bufferReader.close();
+    }
+    
+    // helpermethod for findDependencies. adds all "forced" dependencies.
+    private void addForcedDependencies(String[] words, int wordRead, String pkg) {
+        
+        String word = words[wordRead].trim();
+        
+        if (!data.get(pkg).getDependencies().contains(word)) {
+            if (data.containsKey(word)) {
 
+                data.get(word).addSupport(pkg);
+                data.get(pkg).addDependency(word);
+
+            } else {
+                
+                // adds optional dependency that doesnt exist among the files packages.
+                data.get(pkg).addDependency(word);
+            }
+        }
+    }
+    // helpermethod for findDependencies. adds all optional dependencies. ( dependencies separated by "|"
+    private void addPotentialDependencies(String[] words, int wordRead, String pkg) {
+        for (String s : words) {
+            
+            //gets rid of version numbers in case they exist
+            String word = s.trim().split(" ")[0];
+            
+            if (!data.get(pkg).getDependencies().contains(word)) {
+                if (data.containsKey(word)) {
+
+                    data.get(word).addSupport(pkg);
+                    data.get(pkg).addDependency(word);
+
+                } else {
+                    data.get(pkg).addDependency(word);
+                }
+            }
+        }
     }
 
 }

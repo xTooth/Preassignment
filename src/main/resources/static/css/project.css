@@ -1,0 +1,25 @@
+
+a {
+    color: black;
+}
+
+body {
+    font-family: sans-serif;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 8px 16px;
+}
+ul li:last-child {
+  border-bottom: none
+}
+
+div {
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
