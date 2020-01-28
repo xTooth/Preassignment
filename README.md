@@ -1,7 +1,5 @@
 # Preassignment
 
-[Project on heroku](https://pre-assignment-for-reactor.herokuapp.com/)
-
  A simple website that parses package information from the status.real file.
  This version reads a mockfile from "src/main/java/projekti/data/status.real" but this can be changed to the matching local directory.
 
